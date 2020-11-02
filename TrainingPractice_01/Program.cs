@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KGS_Task_1
+namespace KGS_Task_01
 {
     class Program
     {
@@ -12,7 +12,7 @@ namespace KGS_Task_1
 
             try
             {
-                Console.Write("Количество золота: ");   
+                Console.Write("Количество золота: ");
                 bool successfulConversion = Int32.TryParse(Console.ReadLine(), out gold);
 
                 if (!successfulConversion)
@@ -26,7 +26,7 @@ namespace KGS_Task_1
                 Console.WriteLine(error.Message); // Вывод ошибки
                 Environment.Exit(1); // Закончить программу из-за ошибки
             }
-            
+
             Console.WriteLine($"{price} - цена за 1 кристалл");
 
             try

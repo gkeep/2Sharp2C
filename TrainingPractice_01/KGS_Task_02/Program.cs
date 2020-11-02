@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KGS_Task_2
+namespace KGS_Task_02
 {
     class Program
     {
