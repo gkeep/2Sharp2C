@@ -48,11 +48,13 @@ namespace KGS_Task_1
 
             int maxAmountOfCrystals = gold / price; // Сколько кристаллов можно купить за все деньги
 
-            string result = maxAmountOfCrystals >= crystals 
-                ? "\nВы купили " + crystals + " кристаллов. " + (gold - crystals * price) + " золота остается у вас в кошельке." 
-                : "\nУ вас недостаточно денег, чтобы купить " + crystals + " кристаллов. Вы можете купить только " + maxAmountOfCrystals + " кристаллов.";
+            while (maxAmountOfCrystals >= crystals)
+            {
+                Console.WriteLine($"\nВы купили {crystals} кристаллов. {gold - crystals * price} золота остается у вас в кошельке.");
+                Environment.Exit(0);
+            }
 
-            Console.WriteLine($"{result}");
+            Console.WriteLine($"\nУ вас недостаточно денег, чтобы купить {crystals} кристаллов. Вы можете купить {maxAmountOfCrystals} кристаллов.");
         }
     }
 }
