@@ -48,14 +48,21 @@ namespace KGS_Task_1
 
             int can_buy = gold / price; // Сколько кристаллов можно купить за все деньги
 
-            if (can_buy >= crystals)
-            {
-                Console.WriteLine($"\nВы купили {crystals} кристаллов. {gold - can_buy * price} золота остается у вас в кошельке.");
-            }
-            else
-            {
-                Console.WriteLine($"\nУ вас недостаточно денег, чтобы купить {crystals} кристаллов. Вы можете купить {can_buy} кристаллов.");
-            }
+            string result = can_buy >= crystals 
+                ? "\nВы купили " + crystals + " кристаллов. " + (gold - crystals * price) + " золота остается у вас в кошельке." 
+                : "\nУ вас недостаточно денег, чтобы купить " + crystals + " кристаллов. Вы можете купить " + can_buy + " кристаллов.";
+
+            Console.WriteLine($"{result}");
+
+            // То же самое, только с использованием if:
+            //if (can_buy >= crystals)
+            //{
+            //    Console.WriteLine($"\nВы купили {crystals} кристаллов. {gold - crystals * price} золота остается у вас в кошельке.");
+            //}
+            //else
+            //{
+            //    Console.WriteLine($"\nУ вас недостаточно денег, чтобы купить {crystals} кристаллов. Вы можете купить {can_buy} кристаллов.");
+            //}
         }
     }
 }
