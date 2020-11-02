@@ -13,17 +13,17 @@ namespace KGS_Task_1
             try
             {
                 Console.Write("Количество золота: ");   
-                bool successful_conversion = Int32.TryParse(Console.ReadLine(), out gold);
+                bool successfulConversion = Int32.TryParse(Console.ReadLine(), out gold);
 
-                if (!successful_conversion)
+                if (!successfulConversion)
                     throw new ArithmeticException("Количество золота должно быть целым числом.");
 
                 if (gold <= 0)
                     throw new ArithmeticException("Введено неверное количество золота.");
             }
-            catch (Exception e)
+            catch (Exception error)
             {
-                Console.WriteLine(e.Message); // Вывод ошибки
+                Console.WriteLine(error.Message); // Вывод ошибки
                 Environment.Exit(1); // Закончить программу из-за ошибки
             }
             
@@ -32,25 +32,25 @@ namespace KGS_Task_1
             try
             {
                 Console.Write("Сколько кристаллов вы хотите купить: ");
-                bool successful_conversion = Int32.TryParse(Console.ReadLine(), out crystals);
+                bool successfulConversion = Int32.TryParse(Console.ReadLine(), out crystals);
 
-                if (!successful_conversion)
+                if (!successfulConversion)
                     throw new ArithmeticException("Количество кристаллов должно быть целым числом.");
 
                 if (crystals <= 0)
                     throw new ArithmeticException("Введено неверное количество кристаллов.");
             }
-            catch (Exception e)
+            catch (Exception error)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine(error.Message);
                 Environment.Exit(1);
             }
 
-            int can_buy = gold / price; // Сколько кристаллов можно купить за все деньги
+            int maxAmountOfCrystals = gold / price; // Сколько кристаллов можно купить за все деньги
 
-            string result = can_buy >= crystals 
+            string result = maxAmountOfCrystals >= crystals 
                 ? "\nВы купили " + crystals + " кристаллов. " + (gold - crystals * price) + " золота остается у вас в кошельке." 
-                : "\nУ вас недостаточно денег, чтобы купить " + crystals + " кристаллов. Вы можете купить только " + can_buy + " кристаллов.";
+                : "\nУ вас недостаточно денег, чтобы купить " + crystals + " кристаллов. Вы можете купить только " + maxAmountOfCrystals + " кристаллов.";
 
             Console.WriteLine($"{result}");
         }
