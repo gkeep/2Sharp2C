@@ -16,10 +16,10 @@ namespace KGS_Task_1
                 bool successful_conversion = Int32.TryParse(Console.ReadLine(), out gold);
 
                 if (!successful_conversion)
-                    throw new ArithmeticException("Количество денег должно быть числом.");
+                    throw new ArithmeticException("Количество золота должно быть целым числом.");
 
                 if (gold <= 0)
-                    throw new ArithmeticException("Введено неверное количество денег.");
+                    throw new ArithmeticException("Введено неверное количество золота.");
             }
             catch (Exception e)
             {
@@ -35,7 +35,7 @@ namespace KGS_Task_1
                 bool successful_conversion = Int32.TryParse(Console.ReadLine(), out crystals);
 
                 if (!successful_conversion)
-                    throw new ArithmeticException("Количество денег должно быть числом.");
+                    throw new ArithmeticException("Количество кристаллов должно быть целым числом.");
 
                 if (crystals <= 0)
                     throw new ArithmeticException("Введено неверное количество кристаллов.");
@@ -50,7 +50,7 @@ namespace KGS_Task_1
 
             string result = can_buy >= crystals 
                 ? "\nВы купили " + crystals + " кристаллов. " + (gold - crystals * price) + " золота остается у вас в кошельке." 
-                : "\nУ вас недостаточно денег, чтобы купить " + crystals + " кристаллов. Вы можете купить " + can_buy + " кристаллов.";
+                : "\nУ вас недостаточно денег, чтобы купить " + crystals + " кристаллов. Вы можете купить только " + can_buy + " кристаллов.";
 
             Console.WriteLine($"{result}");
 
