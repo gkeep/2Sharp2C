@@ -10,8 +10,8 @@ namespace KGS_Task_02
 
             while (input != "exit")
             {
+                Console.Write("Введите что-нибудь (exit для завершения цикла программы): ");
                 input = Console.ReadLine();
-                Console.WriteLine($"Вы ввели {input}.");
             }
 
             Console.WriteLine("\nВы вышли из цикла!");
