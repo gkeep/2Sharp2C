@@ -35,13 +35,12 @@ namespace KGS_Task_06
         {
             string[] tempArray = new string[50]; // временный массив, т.к. мы не знаем сколько у нас имен
 
-            FileStream file;
+            StreamReader stream;
             if (isNameArray)
-                file = new FileStream("..\\..\\..\\names.txt", FileMode.Open, FileAccess.Read);
+                stream = new StreamReader("..\\..\\..\\names.txt");
             else
-                file = new FileStream("..\\..\\..\\positions.txt", FileMode.Open, FileAccess.Read);
+                stream = new StreamReader("..\\..\\..\\positions.txt");
 
-            StreamReader stream = new StreamReader(file);
             stream.BaseStream.Seek(0, SeekOrigin.Begin);
 
             // читаем ФИО из файла в временный массив
@@ -54,7 +53,6 @@ namespace KGS_Task_06
             }
 
             stream.Close();
-            file.Close();
 
             string[] resultArray = new string[i]; // конечный массив
 
@@ -93,10 +91,8 @@ namespace KGS_Task_06
                     positionArray[i] = "";
                 }
 
-            FileStream names = new FileStream("..\\..\\..\\names.txt", FileMode.Open, FileAccess.Write);
-            FileStream positions = new FileStream("..\\..\\..\\positions.txt", FileMode.Open, FileAccess.Write);
-            StreamWriter nameStreamWriter = new StreamWriter(names);
-            StreamWriter positionStreamWriter = new StreamWriter(positions);
+            StreamWriter nameStreamWriter = new StreamWriter("..\\..\\..\\names.txt");
+            StreamWriter positionStreamWriter = new StreamWriter("..\\..\\..\\positions.txt");
 
             for (int i = 0; i < nameArray.Length; i++)
                 if ((nameArray[i] != "") && (positionArray[i] != ""))
@@ -107,8 +103,6 @@ namespace KGS_Task_06
 
             nameStreamWriter.Close();
             positionStreamWriter.Close();
-            names.Close();
-            positions.Close();
         }
 
         static public void printAll(string[] nameArray, string[] positionArray)
@@ -174,10 +168,14 @@ namespace KGS_Task_06
                         name = Helper.askInput("Введите ФИО сотрудника: ");
                         Data.deleteEntry(name);
 
-                        // обновляем массивы с данными
                         names = Data.fillArray(true);
                         positions = Data.fillArray(false);
 
+                        break;
+                    case "0":
+                        break;
+                    default:
+                        Helper.colorText("Введено неверное действие, попробуйте снова.", ConsoleColor.Red, true);
                         break;
                 }
             }
