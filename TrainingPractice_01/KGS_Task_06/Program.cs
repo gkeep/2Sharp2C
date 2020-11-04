@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Runtime.ExceptionServices;
 
 namespace KGS_Task_06
 {
@@ -18,16 +20,16 @@ namespace KGS_Task_06
             Console.ForegroundColor = ConsoleColor.White;
         }
 
-        static public string askName()
+        static public string askInput(string text)
         {
-            Helper.colorText("Введите ФИО сотрудника: ", ConsoleColor.Cyan);
+            Helper.colorText(text, ConsoleColor.Cyan);
             string name = Console.ReadLine();
 
             return name;
         }
     }
 
-    class Database
+    class Data
     {
         static public string[] fillArray(bool isNameArray)
         {
@@ -64,6 +66,51 @@ namespace KGS_Task_06
             return resultArray;
         }
 
+        static public void addEntry(string newName, string newPosition)
+        {
+            string[] nameArray = Data.fillArray(true);
+            string[] positionArray = Data.fillArray(false);
+
+            StreamWriter nameStreamWriter = new StreamWriter("..\\..\\..\\names.txt", true);
+            StreamWriter positionStreamWriter = new StreamWriter("..\\..\\..\\positions.txt", true);
+
+            nameStreamWriter.WriteLine(newName);
+            positionStreamWriter.WriteLine(newPosition);
+
+            nameStreamWriter.Close();
+            positionStreamWriter.Close();
+        }
+
+        static public void deleteEntry(string needed_name)
+        {
+            string[] nameArray = fillArray(true);
+            string[] positionArray = fillArray(false);
+
+            for (int i = 0; i < nameArray.Length; i++)
+                if (nameArray[i] == needed_name)
+                {
+                    nameArray[i] = "";
+                    positionArray[i] = "";
+                }
+
+            FileStream names = new FileStream("..\\..\\..\\names.txt", FileMode.Open, FileAccess.Write);
+            FileStream positions = new FileStream("..\\..\\..\\positions.txt", FileMode.Open, FileAccess.Write);
+            StreamWriter nameStreamWriter = new StreamWriter(names);
+            StreamWriter positionStreamWriter = new StreamWriter(positions);
+
+            for (int i = 0; i < nameArray.Length; i++)
+                if ((nameArray[i] != "") && (positionArray[i] != ""))
+                {
+                    nameStreamWriter.WriteLine(nameArray[i]);
+                    positionStreamWriter.WriteLine(positionArray[i]);
+                }
+
+            nameStreamWriter.Close();
+            positionStreamWriter.Close();
+            names.Close();
+            positions.Close();
+        }
+
         static public void printAll(string[] nameArray, string[] positionArray)
         {
             for (int i = 0; i < nameArray.Length; i++)
@@ -81,17 +128,13 @@ namespace KGS_Task_06
 
     class Program
     {
-
         static void Main(string[] args)
         {
             string[] names;
             string[] positions;
 
-            names = Database.fillArray(true);
-            positions = Database.fillArray(false);
-
-            //Helper.printAll(names, positions);
-            //Console.WriteLine($"\n{Helper.findByName("name3", names, positions)}");
+            names = Data.fillArray(true);
+            positions = Data.fillArray(false);
 
             Console.WriteLine("Добро пожаловать в программу." +
                 "\n1 - вывести все досье" +
@@ -105,24 +148,38 @@ namespace KGS_Task_06
             {
                 Helper.colorText("\nДействие: ", ConsoleColor.Blue);
                 input = Console.ReadLine();
+                string name;
 
                 switch (input)
                 {
                     case "1":
-                        Database.printAll(names, positions);
+                        Data.printAll(names, positions);
                         break;
                     case "2":
-                        string name = Helper.askName();
-                        Console.WriteLine(Database.findByName(name, names, positions));
+                        name = Helper.askInput("Введите ФИО сотрудника: ");
+                        Console.WriteLine(Data.findByName(name, names, positions));
                         break;
                     case "3":
-                        // TODO
+                        name = Helper.askInput("Введите ФИО нового сотрудника: ");
+                        string position = Helper.askInput("Введите должность нового сотрудника: ");
+
+                        Data.addEntry(name, position);
+
+                        // обновляем массивы с данными
+                        names = Data.fillArray(true);
+                        positions = Data.fillArray(false);
+
                         break;
                     case "4":
-                        // TODO
+                        name = Helper.askInput("Введите ФИО сотрудника: ");
+                        Data.deleteEntry(name);
+
+                        // обновляем массивы с данными
+                        names = Data.fillArray(true);
+                        positions = Data.fillArray(false);
+
                         break;
                 }
-
             }
         }
     }
