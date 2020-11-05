@@ -42,7 +42,6 @@ namespace KGS_Task_07
 
             // перемешиваем массив методом Shuffle
             Shuffle(array);
-
             PrintArray(array);
         }
     }
