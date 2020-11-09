@@ -17,7 +17,6 @@ namespace KGS_Task_05
             string[] newFile = File.ReadAllLines("..\\..\\..\\labyrinth.txt");
             char[,] array = new char[newFile.Length, newFile[0].Length];
 
-
             for (int j = 0; j < array.GetLength(0); j++)
             {
                 for (int i = 0; i < array.GetLength(1); i++)
@@ -64,8 +63,8 @@ namespace KGS_Task_05
                     steps += 1;
                     return true;
                 case '@':
-                    WinScreen();
                     steps += 1;
+                    WinScreen();
                     return true;
                 default:
                     return false;
@@ -105,10 +104,13 @@ namespace KGS_Task_05
         static void CoinCounter(char[,] array, int pos_x, int pos_y)
         {
             Console.SetCursorPosition(60, 5);
+
             if (coins > 0)
                 Console.WriteLine($"Вы собрали {coins} монеток!");
+
             Console.SetCursorPosition(pos_x, pos_y);
             array[pos_x, pos_y] = ' ';
+
             Console.Write(array[pos_x, pos_y]);
         }
 
