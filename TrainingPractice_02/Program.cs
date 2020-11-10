@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
 
 // https://gist.github.com/gkeep/4db57a585b5ddbed73a1f99da71a837e#file-1-cpp
 
