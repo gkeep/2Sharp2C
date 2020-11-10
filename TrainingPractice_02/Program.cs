@@ -92,7 +92,19 @@ namespace TrainingPractice_02
         static void Main(string[] args)
         {
             Console.Write("Enter array size: ");
-            int size = Int32.Parse(Console.ReadLine());
+            int size = 0;
+            try
+            {
+                bool suuccessfulConversion = Int32.TryParse(Console.ReadLine(), out size);
+
+                if (!suuccessfulConversion || size <= 0)
+                    throw new ArithmeticException("Size must be a positive integer.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Environment.Exit(1);
+            }
 
             bool[] arrayOfOnes = InitialArray(size);
             primeArray = new int[size];
