@@ -9,22 +9,40 @@
 
 namespace TrainingPractice_02
 {
+    public class Helper
+    {
+        static public void colorText(string text, ConsoleColor color, bool line = true)
+        // Вспомогательная функция, которая меняет цвет для данного текста
+        {
+            Console.ForegroundColor = color;
+
+            if (line)
+                Console.WriteLine(text);
+            else
+                Console.Write(text);
+
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+    }
+
     class Program
     {
         static int[] primeArray;
+        static int loopIdx = 1;
 
         static bool[] InitialArray(int size)
         {
             bool[] array = new bool[size];
-            for (int i = 0; i < array.Length; i++)
+
+            for (int i = 1; i < array.Length; i++)
                 array[i] = true;
 
             return array;
         }
 
-        static void printPrimeNumbers(int pos_x, int pos_y)
+        static void PrintPrimeNumbers(int pos_x, int pos_y)
         {
-            int topOffset = 0;
+            int topOffset = 3;
             Console.SetCursorPosition(pos_x + 40, topOffset);
             int line = 1;
 
@@ -44,12 +62,27 @@ namespace TrainingPractice_02
             Console.SetCursorPosition(pos_x, pos_y);
         }
 
-        static void printArray(bool[] array, int highlightIndex)
+        static void PrintInfo(int pos_x, int pos_y, int mul)
         {
-            Console.Clear();
+            int topOffset = 0;
 
+            Console.SetCursorPosition(pos_x + 40, topOffset);
+            Helper.colorText("Enter", ConsoleColor.Cyan, false);
+            Console.Write(" - продолжить.");
+
+            Console.SetCursorPosition(pos_x + 40, topOffset + 1);
+            Console.Write("Шаг ");
+            Helper.colorText($"{loopIdx}", ConsoleColor.Yellow, false);
+            Console.Write($" - удаление чисел, кратных {mul}");
+
+            Console.SetCursorPosition(pos_x, pos_y);
+        }
+
+        static void PrintArray(bool[] array, int highlightIndex)
+        {
             int idx = 0;
-            for (int i = 0; i < array.Length; i++)
+            Console.Write("  ");
+            for (int i = 1; i < array.Length; i++)
             {
                 if (i < highlightIndex && array[i])
                 {
@@ -70,11 +103,11 @@ namespace TrainingPractice_02
                 Console.ForegroundColor = ConsoleColor.White;
             }
 
-            printPrimeNumbers(Console.CursorLeft, Console.CursorTop);
-            Console.ReadKey();
+            PrintPrimeNumbers(Console.CursorLeft, Console.CursorTop);
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
         }
 
-        static void printArrayInProgress(bool[] array)
+        static void Start(bool[] array)
         {
             for (int i = 2; i * i < array.Length; i++)
             {
@@ -82,9 +115,13 @@ namespace TrainingPractice_02
                     for (int j = i * i; j < array.Length; j += i)
                     {
                         array[j] = false;
-                        printArray(array, j);
+
+                        Console.Clear();
+                        PrintInfo(Console.CursorLeft, Console.CursorTop, i);
+                        PrintArray(array, j);
                     }
-                primeArray = new int[primeArray.Length];
+                primeArray = new int[primeArray.Length]; // обнуляем массив, чтобы избавиться от лишних чисел
+                loopIdx++;
             }
         }
 
