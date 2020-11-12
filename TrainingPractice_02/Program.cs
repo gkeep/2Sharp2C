@@ -1,7 +1,7 @@
 ﻿using System;
 
 /*
- * Sieve of Eratosphemes implementation on C++: https://gist.github.com/gkeep/4db57a585b5ddbed73a1f99da71a837e#file-1-cpp
+ * Sieve of Eratosphenes implementation on C++: https://gist.github.com/gkeep/4db57a585b5ddbed73a1f99da71a837e#file-1-cpp
  * 
  * Prime numbers up to 100:
  * 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97
@@ -28,7 +28,7 @@ namespace TrainingPractice_02
             Console.SetCursorPosition(pos_x + 40, topOffset);
             int line = 1;
 
-            Console.WriteLine("Prime numbers:");
+            Console.WriteLine("Простые числа:");
             Console.SetCursorPosition(pos_x + 40, topOffset + line);
             for (int i = 0; i < primeArray.Length; i++)
             {
@@ -88,9 +88,9 @@ namespace TrainingPractice_02
             }
         }
 
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.Write("Enter array size: ");
+            Console.Write("Введите размер матрицы: ");
 
             int size = 0;
             try
@@ -98,18 +98,18 @@ namespace TrainingPractice_02
                 bool suuccessfulConversion = Int32.TryParse(Console.ReadLine(), out size);
 
                 if (!suuccessfulConversion || size <= 0)
-                    throw new ArithmeticException("Size must be a positive integer.");
+                    throw new ArithmeticException("Размер должен быть положительным целым числом.");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                Environment.Exit(1);
+                Main();
             }
 
             bool[] arrayOfOnes = InitialArray(size);
             primeArray = new int[size];
 
-            printArrayInProgress(arrayOfOnes);
+            Start(arrayOfOnes);
         }
     }
 }
