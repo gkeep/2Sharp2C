@@ -11,8 +11,8 @@ namespace TrainingPractice_02
 {
     public class Helper
     {
-        static public void colorText(string text, ConsoleColor color, bool line = true)
         // Вспомогательная функция, которая меняет цвет для данного текста
+        static public void ColorText(string text, ConsoleColor color, bool line = true)
         {
             Console.ForegroundColor = color;
 
@@ -43,11 +43,11 @@ namespace TrainingPractice_02
         static void PrintPrimeNumbers(int pos_x, int pos_y)
         {
             int topOffset = 3;
-            Console.SetCursorPosition(pos_x + 40, topOffset);
+            Console.SetCursorPosition(50, topOffset);
             int line = 1;
 
             Console.WriteLine("Простые числа:");
-            Console.SetCursorPosition(pos_x + 40, topOffset + line);
+            Console.SetCursorPosition(50, topOffset + line);
             for (int i = 0; i < primeArray.Length; i++)
             {
                 if (primeArray[i] != 0)
@@ -55,7 +55,7 @@ namespace TrainingPractice_02
 
                 if (i % 10 == 0)
                 {
-                    Console.SetCursorPosition(pos_x + 40, topOffset + line);
+                    Console.SetCursorPosition(50, topOffset + line);
                     line++;
                 }
             }
@@ -66,13 +66,13 @@ namespace TrainingPractice_02
         {
             int topOffset = 0;
 
-            Console.SetCursorPosition(pos_x + 40, topOffset);
-            Helper.colorText("Enter", ConsoleColor.Cyan, false);
+            Console.SetCursorPosition(50, topOffset);
+            Helper.ColorText("Enter", ConsoleColor.Cyan, false);
             Console.Write(" - продолжить.");
 
-            Console.SetCursorPosition(pos_x + 40, topOffset + 1);
+            Console.SetCursorPosition(50, topOffset + 1);
             Console.Write("Шаг ");
-            Helper.colorText($"{loopIdx}", ConsoleColor.Yellow, false);
+            Helper.ColorText($"{loopIdx}", ConsoleColor.Yellow, false);
             Console.Write($" - удаление чисел, кратных {mul}");
 
             Console.SetCursorPosition(pos_x, pos_y);
@@ -123,10 +123,20 @@ namespace TrainingPractice_02
                 primeArray = new int[primeArray.Length]; // обнуляем массив, чтобы избавиться от лишних чисел
                 loopIdx++;
             }
+            Done();
+        }
+
+        static void Done()
+        {
+            Console.SetCursorPosition(10, Console.CursorTop + 10);
+            Helper.ColorText("Выполнение алгоритма закончено!", ConsoleColor.Cyan, true);
         }
 
         static void Main()
         {
+            Console.Clear();
+            Console.Write("Добро пожаловать в визуализацию ");
+            Helper.ColorText("Решета Эратосфена", ConsoleColor.Green, true);
             Console.Write("Введите размер матрицы: ");
 
             int size = 0;
@@ -139,14 +149,19 @@ namespace TrainingPractice_02
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Helper.ColorText($"\n{e.Message}", ConsoleColor.Red);
+                Console.WriteLine("Нажмите любую клавишу, чтобы попробовать снова.");
+                Console.ReadKey();
                 Main();
+                Environment.Exit(0); // после выхода из вызванного цикла Main, программа все равно будет пытаться пойти дальше с неверным size
             }
 
             bool[] arrayOfOnes = InitialArray(size);
             primeArray = new int[size];
 
             Start(arrayOfOnes);
+
+            Console.ReadKey();
         }
     }
 }
