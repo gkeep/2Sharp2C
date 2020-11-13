@@ -73,7 +73,7 @@ namespace TrainingPractice_02
             Console.SetCursorPosition(50, topOffset + 1);
             Console.Write("Шаг ");
             Helper.ColorText($"{loopIdx}", ConsoleColor.Yellow, false);
-            Console.Write($" - удаление чисел, кратных {mul}");
+            Console.Write($" - удаление чисел, кратных {mul}.");
 
             Console.SetCursorPosition(pos_x, pos_y);
         }
@@ -84,7 +84,7 @@ namespace TrainingPractice_02
             Console.Write("  ");
             for (int i = 1; i < array.Length; i++)
             {
-                if (i < highlightIndex && array[i])
+                if ((i < highlightIndex) && array[i])
                 {
                     primeArray[idx] = i;
                     idx++;
@@ -92,7 +92,7 @@ namespace TrainingPractice_02
 
                 if (i == highlightIndex)
                     Console.ForegroundColor = ConsoleColor.Red;
-                else if (array[i] && i < highlightIndex)
+                else if (array[i] && (i < highlightIndex) && (i >= 2))
                     Console.ForegroundColor = ConsoleColor.Green;
 
                 Console.Write($"{Convert.ToInt32(array[i])} ");
@@ -104,7 +104,7 @@ namespace TrainingPractice_02
             }
 
             PrintPrimeNumbers(Console.CursorLeft, Console.CursorTop);
-            while (Console.ReadKey().Key != ConsoleKey.Enter) { }
+            while (Console.ReadKey().Key != ConsoleKey.Enter) { } // продолжаем, только когда будет нажат Enter
         }
 
         static void Start(bool[] array)
@@ -136,7 +136,9 @@ namespace TrainingPractice_02
         {
             Console.Clear();
             Console.Write("Добро пожаловать в визуализацию ");
-            Helper.ColorText("Решета Эратосфена", ConsoleColor.Green, true);
+            Helper.ColorText("Решета Эратосфена", ConsoleColor.Green, false);
+            Console.WriteLine(".");
+
             Console.Write("Введите размер матрицы: ");
 
             int size = 0;
